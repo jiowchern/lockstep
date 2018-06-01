@@ -7,6 +7,7 @@ namespace Regulus.Project.Lockstep.Common
 {
     public interface IInputtable
     {
+        Guid Id { get; }
         void Input(InputContent inputContent);
     }
 }

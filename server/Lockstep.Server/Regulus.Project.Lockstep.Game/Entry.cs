@@ -10,12 +10,12 @@ namespace Regulus.Project.Lockstep.Game
     public class Entry : Regulus.Remoting.ICore
     {
         private readonly Regulus.Utility.Updater _Updater;
-        private Broadcaster _Boardcaster;
+        private Boardcaster _Boardcaster;
         public Entry()
         {
 
             
-            _Boardcaster = new Broadcaster();
+            _Boardcaster = new Boardcaster();
             _Updater = new Updater();
         }
 
