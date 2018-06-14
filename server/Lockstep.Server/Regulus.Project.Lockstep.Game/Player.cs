@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Regulus.Framework;
 using Regulus.Lockstep;
 using Regulus.Project.Lockstep.Common;
@@ -7,21 +8,26 @@ using Regulus.Utility;
 
 namespace Regulus.Project.Lockstep.Game
 {
-    internal class Player : IUpdatable , IInputtable , IListenable, ICommandProvidable<InputContent>
+    internal class Player : IUpdatable  
     {
         private readonly ISoulBinder _Binder;
-        private readonly Boardcaster _Boardcaster;
+        private readonly Matcher _Matcher;        
         private bool _Enable;
-        private InputContent _Current;
-        private readonly IPlayer<InputContent> _Player;
+        
+        
 
-        public Player(ISoulBinder binder,Boardcaster boardcaster)
+        private readonly Regulus.Utility.StageMachine _Machine;
+        
+
+        public Player(ISoulBinder binder,Matcher matcher)
         {
+            _Machine = new StageMachine();
             _Enable = true;
             _Binder = binder;
-            _Boardcaster = boardcaster;
+            _Matcher = matcher;
+            
             _Binder.BreakEvent += _Quit;
-            _Player = _Boardcaster.Regist(this);
+           
         }
 
         private void _Quit()
@@ -32,34 +38,40 @@ namespace Regulus.Project.Lockstep.Game
         void IBootable.Launch()
         {
 
+
+            _ToMatch();
+
             
             
-            _Binder.Bind<IInputtable>(this);
+        }
+
+        private void _ToMatch()
+        {
+            var stage = new PlayerMatchStage(_Binder, _Matcher);
+            stage.DoneEvent += _ToGame;
+            _Machine.Push(stage);
+        }
+
+        private void _ToGame(Party party )
+        {
+            var stage = new PlayerPlayStage(_Binder, party );
+            stage.DoneEvent += () => _Enable = false;
+            _Machine.Push(stage);
         }
 
         void IBootable.Shutdown()
         {
-            _Boardcaster.Unregist(_Player);
-            _Binder.Unbind<IInputtable>(this);
+            _Machine.Termination();
         }
 
         bool IUpdatable.Update()
         {
-            var steps = _Player.PopSteps();
+            
+            
             return _Enable;
         }
+        
 
-        Guid IInputtable.Id { get { return _Player.Id; } }
-
-        void IInputtable.Input(InputContent input_content)
-        {
-            _Current = input_content;
-        }
-
-        InputContent ICommandProvidable<InputContent>.Current { get { return _Current; } }
-    }
-
-    internal interface IListenable
-    {
+                
     }
 }

@@ -41,9 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Boardcaster.cs" />
+    <Compile Include="Party.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="IPartyProvider.cs" />
+    <Compile Include="MatchCondition.cs" />
+    <Compile Include="Matcher.cs" />
+    <Compile Include="PartySet.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerMatchStage.cs" />
+    <Compile Include="PlayerPlayStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
