@@ -14,7 +14,7 @@ namespace Wasp.Editor.UnityEd.Launch
 
 			if (!EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode)
 			{
-				RegisterSolutionGenerationHooks();
+				//RegisterSolutionGenerationHooks();
 				//EditorApplication.update += PreInit;
 			}
 			//EditorApplication.playmodeStateChanged += PlayModeChanged;

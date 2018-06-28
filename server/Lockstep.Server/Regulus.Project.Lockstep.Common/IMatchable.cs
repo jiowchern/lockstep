@@ -2,6 +2,6 @@
 {
     public interface IMatchable
     {
-        Regulus.Remoting.Value<int> Match();
+        void Match(int player_amount);
     }
 }

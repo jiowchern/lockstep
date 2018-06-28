@@ -16,7 +16,7 @@ namespace Regulus.Project.Lockstep.Unity
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             _Delta += UnityEngine.Time.deltaTime;
             if (_Delta > Interval)

@@ -48,7 +48,8 @@
     <Compile Include="Matcher.cs" />
     <Compile Include="PartySet.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayerMatchStage.cs" />
+    <Compile Include="PlayerMatchSettingStage.cs" />
+    <Compile Include="PlayerMatchWaittingStage.cs" />
     <Compile Include="PlayerPlayStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

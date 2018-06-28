@@ -1,0 +1,14 @@
+{
+    "name": "Regulus.Tests",
+    "references": [
+        "Regulus.TestsSource"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

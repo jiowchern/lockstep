@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Regulus.Framework;
 using Regulus.Lockstep;
@@ -37,17 +36,19 @@ namespace Regulus.Project.Lockstep.Game
 
         void IBootable.Launch()
         {
-
-
-            _ToMatch();
-
-            
-            
+            _ToMatchSetting();
         }
 
-        private void _ToMatch()
+        private void _ToMatchSetting()
         {
-            var stage = new PlayerMatchStage(_Binder, _Matcher);
+            var stage = new PlayerMatchSettingStage(_Binder);
+            stage.DoneEvent += _ToMatchWaitting;
+            _Machine.Push(stage);
+        }
+
+        private void _ToMatchWaitting(int player_count)
+        {
+            var stage = new PlayerMatchWaittingStage(_Matcher , player_count);
             stage.DoneEvent += _ToGame;
             _Machine.Push(stage);
         }
